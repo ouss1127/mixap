@@ -1,0 +1,43 @@
+
+.ant-notification,
+.ant-popover,
+.ant-select-dropdown,
+.ant-cascader-menu,
+.ant-cascader-menus {
+  z-index: 1000000000001 !important;
+}
+
+.ant-tooltip {
+  z-index: 1000000000001 !important;
+}
+
+.ant-popover-inner-content {
+  padding: 0 !important;
+}
+
+button.ant-btn {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-btn > .MuiSvgIcon-root + span,
+.ant-btn > span + .MuiSvgIcon-root {
+  margin-left: 8px;
+}
+
+.resizable-handle {
+  pointer-events: all !important;
+}
+
+.controls-form-notification .ant-notification-notice-close {
+  right: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+}
+
+.controls-form-notification {
+  right: -23px;
+}

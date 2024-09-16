@@ -1,0 +1,219 @@
+
+// --------------------------------------
+// ABSTRACTS
+@import "../oka-design-system/0-abstracts/breakpoints/breakpoints.4.0.0";
+
+:root{
+    --mix-color-neutral-low : #dfe2e3;
+    --mix-color-neutral-medium : #d4e1e8;
+    
+    --mix-color-accent-low :#E6F7FF; // #deebfe;
+    --mix-color-accent-medium : #1677ff;
+
+    --mix-space : 0.5rem;
+    --mix-page-padding : 1.5rem;
+
+
+    --mix-aside-width : 100%;
+    --mix-aside-mr : 0;
+
+}
+@include breakpoint(sm) {
+    :root{
+        ///--mix-aside-width : 22%;
+        //--mix-aside-mr : 1rem;
+    }  
+}
+@include breakpoint(md) {
+    :root{
+        --mix-space : 0.75rem;
+        --mix-page-padding : 3rem;
+        --mix-aside-width : 18rem;
+        --mix-aside-mr : 2rem;
+    } 
+}
+@include breakpoint(lg) {
+    :root{
+        --mix-aside-width : 20rem;
+        --mix-aside-mr : 2rem;
+    }  
+}
+@include breakpoint(xl) {
+    :root{
+        --mix-space : 1.5rem;
+        --mix-aside-width : 22rem;
+        --mix-aside-mr : 4rem;
+    }  
+}
+
+
+
+// -------------------------
+// Surcharge Ant
+body {
+    height:100%;
+    color: rgba(0, 0, 0, 0.88);
+    line-height: 1.6;
+}
+
+#root {
+    min-height: 100%;
+}
+
+h3,h4 {
+    font-weight: 600;
+}
+// -------------------------
+
+
+%flex-hrz-bottom {
+    display:flex;
+    align-items: flex-end;
+}
+
+// -------------------------
+// Mise en page
+
+.mix-spacer{
+    height : var(--mix-space);
+}
+
+
+.mix-app {
+    background: #fff;
+}
+
+.mix-appWrap{
+    //outline:1px solid blue;
+    padding-left : var(--mix-page-padding);
+    padding-right : var(--mix-page-padding);
+}
+//-------------------------
+// hack AntDesign
+
+.ant-page-header {
+    padding-inline: var(--mix-page-padding);
+}
+
+
+.mix-main {
+    //outline:1px solid green;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    @include breakpoint(md) {
+        flex-direction: row;
+    }
+
+    &_aside{
+        //outline:1px solid red;
+        flex: 0 0 var(--mix-aside-width);
+        width: var(--mix-aside-width);
+        margin-right : var(--mix-aside-mr);
+        //padding-left : var(--mix-page-padding);
+        margin-bottom: 2rem;
+
+        display: flex;
+        flex-direction: column;
+        // gap: 0.5rem;
+        @include breakpoint(md) {
+            display: block;
+        }
+    }
+
+    &_content{
+        //outline:1px solid red;
+        flex-grow:1;
+        position: relative;
+
+        padding-bottom: var(--mix-page-padding);
+
+        &_item{
+            justify-content: center;
+
+            @include breakpoint(md) {
+                justify-content: normal;
+            }
+        }
+        
+    }
+
+}
+
+/*A RANGER*/
+/*Ajout css pour selection activités dans groupe/parcours*/
+.mix-modal_choiceActivity {
+
+    .mix-card {
+
+
+        
+
+        &_bt{
+            display: none !important;
+        }
+        
+        .ant-card-actions{
+            pointer-events: none;
+            filter: grayscale(1);
+            display:none;
+        }
+        
+
+        &_select{
+            pointer-events: all;
+            border: 2px solid #fff;
+
+            
+
+
+            border-color: #4096ff;
+            position: absolute;
+            top: 25%;
+            right: 0;
+            left: 0;
+            width: 30px;
+            margin: auto;
+
+            box-shadow: 0 2px 12px rgba(0, 159, 248, 0.5);
+        }
+
+        &_selectIco{
+            display: none;
+           
+        }
+
+        &:has(.mix-card_selectIco){
+            //outline : none ;
+            //border-color: var(--mix-color-neutral-medium) ;
+        }
+
+        &:not(:has(.mix-card_selectIco)){
+            border-color: var(--mix-color-accent-medium) !important;
+            outline: 3px solid var(--mix-color-accent-low) !important;
+        }
+        
+    }
+    
+}
+
+.mix-card:hover  {
+
+    .mix-card_select{
+       zoom:1.1;
+       //box-shadow: 0 6px 12px rgba(0, 159, 248, 0.5);
+       //border-color: #4096ff;
+    }
+
+    .mix-card_selectIco{
+        //display: block;
+    }
+}
+
+
+.mix-spacer {
+    &.-hrz {
+        width:2rem;
+    }
+}

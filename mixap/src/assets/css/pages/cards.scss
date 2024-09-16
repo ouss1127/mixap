@@ -1,0 +1,456 @@
+// --------------------------------------
+// ABSTRACTS
+
+@import "../oka-design-system/0-abstracts/breakpoints/breakpoints.4.0.0";
+@import "commons-bibliotheque";
+
+
+// ----------------------------------
+// Affichage Listing
+
+body {
+    --mix-card-width : 200px ;
+    --mix-card-height: 272px ;
+    --mix-card-cover-width : var(--mix-card-width);
+    --mix-card-cover-height : 144px;
+}
+
+
+.mix-card{
+
+//border:1px solid brown !important;
+
+    body:not(.-listing){
+        @extend %card;
+    }
+    
+    // Listing 
+    body.-listing & {
+        --mix-card-width : 100% ;
+        --mix-card-height: 3rem ;
+        --mix-card-cover-width : 4rem;
+        --mix-card-cover-height : 3rem;
+
+        @extend %cardList;
+
+        container-type: inline-size;
+        container-name: mixCard;
+
+    }
+
+
+    width: var(--mix-card-width) !important;
+    height: var(--mix-card-height) !important;
+
+    //border-radius:0.25rem;
+    border-color: var(--mix-color-neutral-medium) !important;
+
+    overflow: hidden;
+    cursor: pointer;
+
+
+    &:hover {
+        border-color: var(--mix-color-accent-medium) !important;
+        outline: 3px solid var(--mix-color-accent-low);
+
+
+        body.-listing & {
+            outline:none;
+            background-color: var(--mix-color-accent-low);
+            border-color: transparent;
+        }
+    }
+
+
+    .ant-card-cover {
+        flex-shrink: 0;
+        
+        overflow: hidden;
+
+        width: var(--mix-card-cover-width);
+        height: var(--mix-card-cover-height);
+        
+        border:1px solid transparent;
+    }
+
+    // ICONE
+    &_ico {
+        position: absolute;
+        z-index: 2;
+        top: 6px;
+        left: 136px;
+
+        width: 56px !important;
+        height: 42px !important;
+
+        // Mode Listing 
+        body.-listing & {
+            position : relative;
+            top:3px;
+            left: 0;
+            border-radius : 0;
+        }
+    }
+
+    // BADGE
+    &_badge {
+        position: absolute;
+        z-index: 1;
+        top: 6px;
+        left: 6px;
+        right: 68px;
+
+        width: auto !important;
+        height: 1.25rem !important;
+        padding-left:0.5rem;
+
+        color :#141414;
+        background : rgba(255,255,255,0.8); //#fff; //var(--mix-color-accent-medium);
+        border-radius : 0.25rem;
+
+        font-size : 10px;
+        font-weight : 700;
+        line-height: 1.25rem;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+
+        // Mode Listing 
+        body.-listing & {
+            display:none;
+        }
+
+        .ant-typography {
+            font-size : 10px;
+            line-height: 1.25rem;
+        }
+    }
+
+    // IMAGE PREVIEW
+    &_preview{
+        width: 202px;
+        height: 142px;
+
+        object-fit: cover;
+        object-position: 50% 50%;
+    
+        transition: all 0.25s ease-out;
+
+        // Effet Zoom
+        .mix-card:hover & {
+            width: 212px;
+            height: 152px;
+            margin-left:-5px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
+        
+        // Mode Listing 
+        body.-listing & {
+            display:none;
+        }
+    }
+
+    // IMAGE SKELETON
+    &_skeleton {
+
+        background: var(--mix-color-accent-low) !important;
+        // Mode Listing 
+        body.-listing & {
+            display:none;
+        }
+
+        path {
+            fill:#fff !important;
+            fill:transparent !important;
+        }
+    }
+
+    // BOUTON LANCEMENT
+    &_bt{
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        width: initial !important;
+        transform: translate(-50%, -50%);
+        background:var(--mix-color-accent-medium);
+        opacity: 0.5;
+        pointer-events: none;
+
+        // Mode Listing 
+        body.-listing & {
+            display:none !important;
+        }
+
+        .mix-card:hover & {
+            top: 50%;
+            background: var(--mix-color-accent-medium);
+            opacity: 1;
+        }
+    }
+
+    &_btListing.ant-btn{
+       
+        display: none !important;
+        border-radius: 0.25rem !important;
+        padding : 0 0.5rem !important;
+  
+        // Mode Listing 
+        body.-listing & {
+            //display:flex !important;
+        }
+    }
+
+    // CORPS DE CARD
+    .ant-card-body{
+        pointer-events: none;
+
+//background-color: rgba(0, 255, 255, 0.196);
+
+        // Mode Listing 
+        body.-listing & {
+
+
+            width:calc(100% - 10rem - 6rem);
+            flex-grow:0;
+            flex-shrink:0;
+            padding:0 !important;
+            
+            display: flex;
+            align-items: center;
+     
+        }   
+
+        > div.ant-space{
+//border:1px solid red;
+           
+            //display: flex;
+            //flex-direction: column;
+            //justify-content: space-between;
+
+            // Mode Listing 
+            body.-listing & {
+                width:100%;
+            }
+
+
+            div.ant-space-item {
+                flex-grow: 1;
+
+
+                // Container du titre
+                &:first-child{
+//border:1px solid blue;
+                    flex:0 0 calc(100% - 3rem);
+                    width:calc(100% - 3rem);
+                }
+                
+                // Container du bouton
+                &:last-child{
+//border:1px solid blue;
+                    flex:0 0 8rem;
+                    width:3rem;
+                }
+                // Mode Listing 
+                body.-listing & {
+                    
+                    @container mixCard (max-width: 920px) {
+                        .ant-card-meta {
+                            //border:1px solid red !important;
+                        }
+                        // .ant-card-meta-title,
+                        // .ant-card-meta-title span {
+                        //     //width:100% !important;
+                        //     //min-width:100% !important;
+                        //     //max-width:100% !important;
+                        // }
+                        .ant-card-meta-description{
+                            display:none !important;
+                        }
+                    }
+                }
+                // Titre et description
+                .ant-card-meta{
+                    
+                    //border:1px solid red;
+                
+                    margin: 0; 
+
+                    // Mode Listing 
+                    body.-listing & {
+                        //border:1px solid green;
+                        //container-type: inline-size;
+                        width:100%;
+                    }  
+
+
+                    &-detail {
+                        position: relative;
+                        overflow:visible; // essentiel pour Pins
+                        // Mode Listing 
+                        body.-listing & {
+//border:1px solid orange;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            width:calc(100% - 1rem);
+
+                            
+                        }  
+                    }
+
+                    &-title {
+//border:1px solid red !important;
+                        // Mode Listing 
+                        body.-listing & {
+                            width:calc(100% - 1rem);
+                         
+                            flex:1 1 100%;
+                            margin:0;
+                            // flex-shrink: 1;
+                            // flex-basis:50%;
+                            // border:1px solid red;
+                            //flex:0;
+                            //width:60% ;
+                            //min-width:60% ;
+                            //max-width:60% ;
+                            //margin-bottom:0 !important;
+                            
+
+                        } 
+                        // Span de texte du titre
+                        span:not(.mix-grp_nb):not(.mix-download_ico):not(.anticon) {
+                            flex-shrink: 1;
+                            //position:relative;
+                            body.-listing & {
+                                width:calc(100% - 0rem);
+                                
+                            }
+                        } 
+
+
+                        .mix-card_pins {
+//border:1px solid red;
+                            position:absolute;
+                            z-index:5;
+                            top:-2.5rem;
+                            left:0rem;
+                            width: 100%;
+
+                            display: flex;
+                            justify-content: space-between;
+
+                            body.-listing & {
+                                //position:relative;
+                                top:0;
+                                bottom:0;
+                                left:100%;
+
+                                width: auto;
+                                height:1.75rem;
+
+                                margin:auto;
+                      
+                                flex-direction: row-reverse;
+                            }
+
+
+                        }
+
+
+                        .mix-grp_nb,
+                        .mix-download_ico {
+                            display: inline-block;
+                            height: 1.75rem;
+                            min-width: 1.75rem;
+                            background-color: #fff;
+                            border-radius: 1.75rem;
+                            text-align: center;
+                            line-height: 1.75rem;
+                        }
+
+
+
+                        .mix-grp_nb {
+                            //display: block;
+                            margin-left:auto;
+                            font-size: 0.8rem;
+                            font-family: 'Courier New', Courier, monospace;
+                          
+                        }
+                        .mix-download_ico {
+                     
+                            color : rgb(255, 0, 234) !important;
+                        }
+                        
+                    }
+
+                    &-description {
+//border:1px solid red !important;
+
+                        // Mode Listing 
+                        body:not(.-listing) & {
+                            display: block;
+
+                        } 
+                        // Mode Listing 
+                        body.-listing & {
+                            width:calc(100% - 1rem);
+                            flex:1 1 100%;
+                            margin:0;
+                        //   border:1px solid red;
+                        //   flex-shrink: 1;
+                        //    flex-basis:50%;
+                        //    width:40% !important;
+                        //    min-width:50% !important;
+                        //    max-width:50% !important;
+                        //    flex:0;
+                        }
+                       
+                        @include breakpoint(md) {
+                            //display: block;
+                        }
+
+                        span {
+                            // Mode Listing 
+                            body.-listing & {
+                                width:100%;
+                                display: block;
+                                font-size:12px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // PIED DE CARD
+    .ant-card-actions{
+        cursor: default;
+
+        .ant-btn {
+            color : var(--mix-color-accent-medium) !important;
+        }
+        .ant-btn:hover {
+            background : var(--mix-color-accent-low) !important;
+        }
+
+        // Mode Listing 
+        body.-listing & {
+            flex: 0 0 10rem;
+            height:2.5rem;
+
+            margin-right:0.5rem;
+
+            border-color : transparent;
+            border-radius: 0.5rem;
+
+            li {
+                margin: 4px 0;
+            }
+
+        }
+    }
+}
+

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@mindar/image": ["lib/mind-ar/src/image-target/index.ts"],
+      "@mindar/face": ["lib/mind-ar/src/face-target/index.ts"]
+    }
+  }
+}

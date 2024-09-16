@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  web:
+    container_name: www_mixap
+    build: 
+        context: ./
+        dockerfile: Dockerfile
+    command: dev
+    environment:
+      - HTTPS=true
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "3000:3000"
+    
+    

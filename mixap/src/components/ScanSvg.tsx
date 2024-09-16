@@ -1,0 +1,90 @@
+import React from 'react';
+
+export const ScanSvg = () => (
+  <svg
+    width='500'
+    height='500'
+    viewBox='0 0 500 500'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'>
+    <g clipPath='url(#clip0_1101_42)'>
+      <line
+        x1='3.5'
+        y1='500'
+        x2='3.5'
+        y2='373'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <path
+        d='M1 497.5H128'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        y1='247.5'
+        x2='500'
+        y2='247.5'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='1'
+        y1='3.5'
+        x2='128'
+        y2='3.5'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='3.5'
+        y1='6'
+        x2='3.5'
+        y2='133'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='497.5'
+        y1='133'
+        x2='497.5'
+        y2='6'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='373'
+        y1='3.5'
+        x2='500'
+        y2='3.5'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='497.5'
+        y1='373'
+        x2='497.5'
+        y2='500'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+      <line
+        x1='499'
+        y1='497.5'
+        x2='372'
+        y2='497.5'
+        stroke='#CCCCCC'
+        strokeWidth='5'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_1101_42'>
+        <rect
+          width='500'
+          height='500'
+          fill='white'
+        />
+      </clipPath>
+    </defs>
+  </svg>
+);

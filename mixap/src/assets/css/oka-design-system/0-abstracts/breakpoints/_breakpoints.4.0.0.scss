@@ -1,0 +1,55 @@
+// BreakPoints / MediaQueries
+
+/**
+
+| 4.0.0 | 04/05/2023 | Supression des variables scss externe  |
+| 3.1.1 | 21/10/2022 | mise a dispo sous forme de var css |
+| 3.1.0 | 03/06/2021 | Supression ref MaterialDesign      |
+| 3.0.0 |            | tokens                             |
+*/
+
+
+// INSPIRATION CODYHOUSE
+// Pour generation des colonnes de grilles
+
+/*
+// Usage :
+
+.selecteur {
+    @include breakpoint(sm) {
+   }
+}      
+*/
+
+$oka-breakpoint-xxs    : 320px;
+$oka-breakpoint-xs     : 480px;
+$oka-breakpoint-sm     : 768px;
+$oka-breakpoint-md     : 1024px;
+$oka-breakpoint-lg     : 1280px;
+$oka-breakpoint-xl     : 1440px;
+
+:root {
+  --oka-breakpoint-xxs    : $oka-breakpoint-xxs ;
+  --oka-breakpoint-xs     : $oka-breakpoint-xs ;
+  --oka-breakpoint-sm     : $oka-breakpoint-sm ;
+  --oka-breakpoint-md     : $oka-breakpoint-md ; 
+  --oka-breakpoint-lg     : $oka-breakpoint-lg ; 
+  --oka-breakpoint-xl     : $oka-breakpoint-xl ; 
+}
+
+$breakpoints: (
+  xxs : $oka-breakpoint-xxs,
+  xs  : $oka-breakpoint-xs , 
+  sm  : $oka-breakpoint-sm , 
+  md  : $oka-breakpoint-md , 
+  lg  : $oka-breakpoint-lg , 
+  xl  : $oka-breakpoint-xl 
+) !default;
+
+@mixin breakpoint($breakpoint, $logic: false) {
+  @if( $logic ) {
+    @media #{$logic} and (min-width: map-get($map: $breakpoints, $key: $breakpoint)) { @content; }
+  } @else {
+    @media (min-width: map-get($map: $breakpoints, $key: $breakpoint)) { @content; }
+  }
+}

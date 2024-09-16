@@ -1,0 +1,114 @@
+// --------------------------------------
+// ABSTRACTS
+@import "../oka-design-system/0-abstracts/breakpoints/breakpoints.4.0.0";
+
+
+
+:root{
+    --mix-tabsTop-height : 4rem;
+}
+
+
+// Entete des Tabs
+.mix-main{
+    .ant-tabs-nav{
+
+        height: var(--mix-tabsTop-height);
+       
+        
+        background-color: var(--mix-color-accent-low);
+
+        @include breakpoint(md) {
+            padding-left : var(--mix-page-padding);
+        }
+
+
+        // Filet divider
+        &:before{
+            display: none;
+        }
+    }
+
+    // titre : Ma bibliotheque
+    .ant-tabs-extra-content{
+        overflow : hidden; // sm : invisible 
+        width:0px; // sm : invisible 
+        
+        @include breakpoint(md) {
+            width: var(--mix-aside-width);
+            flex: 0 0 var(--mix-aside-width);
+
+            margin-right:var(--mix-aside-mr);
+        }
+
+        h2 {
+            font-weight: 600;
+        }
+    }
+
+    // Tabs
+    .ant-tabs .ant-tabs-tab {
+
+        padding:12px 16px;
+
+        @include breakpoint(md) {
+            padding:12px 0;
+        }
+    }
+
+
+    // Pastille Qté
+    .mix-tab_qte{
+        display:inline-block;
+        min-width:40px;
+
+        margin-left: 0.5rem;
+        padding : 0.25rem 0.75rem;
+
+        background-color: #fff;
+        border-radius: 2rem;
+        
+        font-size: 0.8rem;
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+        
+    }
+
+}
+// -----------------------------------------------
+.mix-tab_filters{
+    width:100%;
+    margin: 0 0 1rem 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap:0.5rem;
+}
+
+// -----------------------------------------------
+// Colonne de description
+.mix-infos {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap : 1rem;
+
+    //padding-left : var(--mix-page-padding);
+    padding-bottom : var(--mix-page-padding);
+
+    h4 {
+        margin:0;
+    }
+
+    &_details {
+        max-width:100%;
+        padding-bottom:2rem;
+        border-bottom:1px solid var(--mix-color-neutral-low);
+
+        @include breakpoint(md) {
+            margin-right:0;
+        }
+    }
+}
+

@@ -1,0 +1,230 @@
+
+@import "commons-bibliotheque";
+
+
+
+
+%hiddenCard{
+    display:none;
+}
+
+
+%hiddenCardList{
+    display:none;
+}
+
+
+// Design
+
+.mix-tab_filters {
+
+    label {
+        margin: 0;
+       
+        display: flex;
+        align-items: center;
+        
+        font-size:9px;
+        text-transform: uppercase;
+
+        cursor: pointer;
+        user-select : none;
+        transition: all 0.15s ease-out;
+
+        &:not(.mix-filters_reset){
+            padding: 0.25rem 0.75rem ;
+            border:2px solid var(--mix-color-accent-low);
+            border-radius: 0.5rem;
+            input {
+                display: none;
+            }
+        }
+
+        &:not(.mix-filters_reset):has(input:checked){
+            border:2px solid var(--mix-color-accent-medium);
+            
+            &.-exploiter {
+                border-style: dashed !important;
+                border-color : orange ;
+     
+            }   
+        }
+
+        &.-exploiter {
+            border-style: dashed !important;
+            //border-color : orange ;
+ 
+        }   
+    }
+}
+
+
+
+// Reset Filtres
+.mix-filters_reset {
+    display: flex;
+    align-items: center;
+
+    h4 {
+        margin : 0 0 0 0.5rem;
+    }
+
+    body:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer):not(.-exploiter) & {
+        pointer-events: none;
+    }
+
+}
+#resetFiltres {
+    display:block;
+    accent-color: #000000;
+
+    body:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer):not(.-exploiter) & {
+        opacity:0.15;
+    }
+}
+
+
+
+// ------------------------------------------
+// Fonctionnalité : Filtration
+
+.-activities {
+
+    // cartes Activité non expoitées
+    .ant-card.Augmentation:not(.Exploiter),
+    .ant-card.Validation:not(.Exploiter),
+    .ant-card.Assocation:not(.Exploiter),
+    .ant-card.Superposition:not(.Exploiter)  {
+
+        // Aucun filtre / Mode Card
+        body:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer) & {
+            @extend %card;
+        }
+
+        // Aucun filtre / Mode Listing
+        body.-listing:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer) & {
+            @extend %cardList;
+        }
+    }
+
+    // cartes Activité  expoitées
+    .ant-card.Augmentation.Exploiter,
+    .ant-card.Validation.Exploiter,
+    .ant-card.Assocation.Exploiter,
+    .ant-card.Superposition.Exploiter  {
+
+        // Aucun filtre + filtre Exploiter / Mode Card
+        body.-exploiter:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer) & {
+            @extend %card;
+        }
+
+        // Aucun filtre + filtre Exploiter / Mode Listing
+        body.-listing.-exploiter:not(.-augmenter):not(.-valider):not(.-associer):not(.-superposer) & {
+            @extend %cardList;
+        }
+    }
+
+
+
+
+    .ant-card.Augmentation {
+        body:not(.-augmenter) & {
+            @extend %hiddenCard;
+        }
+        body.-listing:not(.-augmenter) & {
+            @extend %hiddenCardList;
+        }
+    }
+    .ant-card.Augmentation.Exploiter {
+        body.-exploiter:not(.-augmenter) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCard;
+        }
+        body.-exploiter.-listing:not(.-augmenter) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCardList;
+        }  
+    }
+
+
+
+    .ant-card.Validation {
+        body:not(.-valider) & {
+            @extend %hiddenCard;
+        }
+        body.-listing:not(.-valider) & {
+            @extend %hiddenCardList;
+        }
+    }
+    .ant-card.Validation.Exploiter {
+        body.-exploiter:not(.-valider) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCard;
+        }
+        body.-exploiter.-listing:not(.-valider) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCardList;
+        }  
+    }
+
+
+
+    .ant-card.Assocation  {
+        body:not(.-associer) & {
+            @extend %hiddenCard;
+        }
+        body.-listing:not(.-associer) & {
+            @extend %hiddenCardList;
+        }
+    }
+    .ant-card.Assocation.Exploiter {
+        body.-exploiter:not(.-associer) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCard;
+        }
+        body.-exploiter.-listing:not(.-associer) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCardList;
+        }  
+    }
+
+
+
+    .ant-card.Superposition  {
+        body:not(.-superposer) & {
+            @extend %hiddenCard;
+        }
+        body.-listing:not(.-superposer) & {
+            @extend %hiddenCardList;
+        }
+    }
+    .ant-card.Superposition.Exploiter {
+        body.-exploiter:not(.-superposer) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCard;
+        }
+        body.-exploiter.-listing:not(.-superposer) & ,
+        body:not(.-exploiter) & {
+            @extend %hiddenCardList;
+        }  
+    }
+
+
+
+    .ant-card.Exploiter  {
+
+        border-style: dashed !important;
+        border-color : orange !important;
+        outline: 3px solid rgb(242, 232, 212) !important;
+        //border-width: 3px;
+
+        body.-exploiter & {
+            @extend %card;
+        }
+        body.-listing.-exploiter & {
+            @extend %cardList;
+            outline: none !important;
+        }
+    }
+
+}

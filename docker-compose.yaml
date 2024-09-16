@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  web:
+    container_name: www_mixap
+    build: 
+        context: ./mixap
+        dockerfile: Dockerfile
+    command: yarn dev
+    environment:
+      - HTTPS=true
+    volumes:
+      - ./mixap/:/app/
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - dev
+  
+networks:
+    dev:
+
+    

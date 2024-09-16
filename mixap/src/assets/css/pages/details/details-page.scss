@@ -1,0 +1,47 @@
+
+.mix-details {
+
+    &_ico {
+        width: 100%;
+        height: 142px;
+
+        object-fit: contain;
+        object-position: 50% 50%;
+
+        background-color:#ebfdff ;
+        border: 1px solid var(--mix-color-neutral-medium);
+        border-radius:0.5rem;
+
+        &Img{width: 100%;
+            height: 138px;
+
+            object-fit: contain;
+            object-position: 50% 50%;
+
+            
+        }
+    }
+}
+
+
+.mix-identifier {
+    padding: 1rem 0;
+    margin: 2rem 0;
+
+    border: 1px solid var(--mix-color-neutral-medium);
+    border-width: 1px 0;
+
+
+    label{
+        font-size: 0.8rem;
+        font-weight : 500;
+        user-select: none;
+    }
+
+    &_nb {
+        //font-weight : 600;
+        margin:0;
+        user-select: all;
+    }
+
+}
