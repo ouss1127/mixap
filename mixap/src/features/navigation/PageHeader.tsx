@@ -207,7 +207,8 @@ export default function Header({
   );
 }
 
-{/*<Button
+{
+  /*<Button
           key='dashboard'
           shape='round'
           color='#000'
@@ -216,7 +217,8 @@ export default function Header({
             navigate('/dashboard');
           }}>
           {t('common.dashboard')}
-        </Button>*/}
+        </Button>*/
+}
 
 const SyncPush = () => {
   const log = useLogger('SyncPush');
