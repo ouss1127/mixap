@@ -66,7 +66,7 @@ export const activityTypeList = {
       instruction: 'common.superposition-placeholder-instruction',
       description: 'common.superposition-placeholder-description',
     },
-    disabled: false,
+    disabled: true,
   },
   [ActivityType.Group]: {
     title: 'common.group-title',
