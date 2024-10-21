@@ -2,10 +2,10 @@ install:
 	docker-compose up --build -d
 
 nvm_use:
-	nvm install 18.18.2 && nvm use 18.18.2
+	. ${NVM_DIR}/nvm.sh && nvm install 18.18.2 && nvm use 18.18.2
 
 db_install:
-	nvm install 18.18.2 && nvm use 18.18.2 && cd supabase && npm install --save-dev supabase && npx supabase init && npx supabase start	
+	. ${NVM_DIR}/nvm.sh && nvm install 18.18.2 && nvm use 18.18.2 && cd supabase && npm install --save-dev supabase && npx supabase init && npx supabase start	
 
 db_start:
 	cd supabase && npx supabase start

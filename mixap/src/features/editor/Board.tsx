@@ -129,7 +129,7 @@ const Stats = ({ statsArray }) => {
   return (
     <div>
       {statsArray.map((element, index) => (
-        <div key={element.id}>
+        <div>
           <div
             key={index}
             style={{ display: 'inline-flex' }}>

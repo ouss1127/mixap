@@ -6,7 +6,6 @@ import React, { ReactNode } from 'react';
 import { MkUpload3f } from '../markerUpload/MkUpload';
 import { AuraPlay } from '../editor/AuraPlay';
 import { AuraMake } from '../editor/AuraMake';
-import { LayerMake } from '../editor/LayerMake';
 import { ActivityType } from './ActivityType';
 import { MarkerPreview } from '../markerUpload/MarkerPreview';
 import { MarkerCustom } from '../markerUpload/MarkerCustom'; // added by me
@@ -72,77 +71,7 @@ export function activitySteps({
   const { t } = useTranslation();
 
   switch (type) {
-    case ActivityType.Superposition: {
-      return [
-        {
-          title: t('common.step-naming'),
-          // description: 'Nommer votre activité',
-          useCanvas: false,
-          content: (
-            <>
-              <ActivityView
-                activity={activity}
-                activityId={id}
-              />
-            </>
-          ),
-        },
-        {
-          title: t('common.step-marker'),
-          // description: 'Ajouter votre image marqueur',
-          useMarkerCompiler: true,
-          content: (
-            <MkUpload3f
-              activity={activity}
-              multiple={false}
-              onChange={onMkUpload}
-              compiling={compiling}
-              markerImages={markerImages}
-            />
-          ),
-        },
-        {
-          title: t('common.step-layer'),
-          // description: 'Ajouter vos augmentations',
-          content: (
-            <>
-              {/* marker preview */}
-              <MarkerPreview
-                aspect={true}
-                markerImages={markerImages}
-              />
-
-              {/* marker Custom */}
-              <MarkerCustom
-                aspect={true}
-                markerImages={markerImages}
-                activity={activity}
-                activityId={id}
-              />
-
-              {/* Auras board */}
-              <LayerMake
-                canvasRef={canvasRef}
-                activity={activity}
-                activityId={id}
-              />
-            </>
-          ),
-        },
-        {
-          title: t('common.step-trial'),
-          // description: 'Essayer votre activité',
-          content: (
-            <AuraPlay
-              ref={auraPlayRef}
-              canvasRef={canvasRef}
-              activity={activity}
-              activityId={id}
-            />
-          ),
-        },
-      ];
-    }
+    case ActivityType.Superposition:
     case ActivityType.Path: {
       return [
         {
