@@ -106,6 +106,7 @@
     "step-customization": "Customization",
     "step-marker": "Marker",
     "step-augmentation": "Augmentation",
+    "step-layer": "Layer",
     "step-trial": "Trial",
     "step-success": "Success",
     "step-failure": "Failure",
