@@ -1,30 +1,35 @@
 import React from 'react';
-import { Layer } from '../enums/layer';
-import { useLayer } from '../hooks/useLayer';
+import useStore from '../hooks/useStore';
 
-const LayerList: React.FC = () => {
-    const layers: Layer[] = useLayer(state => state.layers);
-    const addLayer = useLayer(state => state.addLayer);
-    const removeLayer = useLayer(state => state.removeLayer);
-    const toggleVisibility = useLayer(state => state.toggleVisibility);
+const LayerList = () => {
+  // Access layers from the Zustand store
+  const layers = useStore((state) => state.layerSlice.layers);
+  
+  // Zustand actions for managing layers
+  const toggleVisibility = useStore((state) => state.layerSlice.toggleLayerVisibility);
+  const removeLayer = useStore((state) => state.layerSlice.removeLayer);
 
-    return (
-        <div>
-            <h2>Calques</h2>
-            <ul>
-                {layers.map(layer => (
-                    <li key={layer.id}>
-                        {layer.name} ({layer.visible ? 'Visible' : 'Hidden'})
-                        <button onClick={() => toggleVisibility(layer.id)}>
-                            {layer.visible ? 'Cacher' : 'Afficher'}
-                        </button>
-                        <button onClick={() => removeLayer(layer.id)}>Supprimer</button>
-                    </li>
-                ))}
-            </ul>
-            <button onClick={() => addLayer('Nouveau Calque', {})}>Ajouter un Calque</button>
-        </div>
-    );
+  return (
+    <div>
+      <h3>Layers</h3>
+      <ul>
+        {layers.map((layer) => (
+          <li key={layer.id}>
+            {/* Layer name and ID */}
+            <span>{layer.name || `Layer ${layer.id}`}</span>
+            
+            {/* Button to toggle visibility */}
+            <button onClick={() => toggleVisibility(layer.id)}>
+              {layer.visible ? 'Hide' : 'Show'}
+            </button>
+            
+            {/* Button to remove a layer */}
+            <button onClick={() => removeLayer(layer.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default LayerList;

@@ -3,25 +3,22 @@ import { isEqualWith } from 'lodash';
 
 import { RxColOp } from '../../db/types';
 import useStore from '../../hooks/useStore';
-import { useLayer } from '../../hooks/useLayer';
-import { Layer } from '../../enums/layer';
+import { useLayer} from '../../hooks/useLayer';
 import { EditorStatus } from './slice';
-import { LayerMode } from './Board';
 import useLogger from '../../hooks/useLogger';
 import { useThree } from '@react-three/fiber';
 import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
+import { Layer } from '@/enums/layer';
 
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');
-
   log.debug('Render');
 
   const { onRxColLayer } = useLayer();
   const [delayed, setDelayed] = useState(true);
 
   const { layerKey = undefined } = meta;
-
   const { trace } = useTrace({});
 
   let layers = useStore(
@@ -31,9 +28,10 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
       isEqualWith(l1, l2, (l1v, l2v) => l1v.id === l2v.id) &&
       l1.length === l2.length,
   );
+
   const setStatus = useStore((state) => state.editorSlice.setStatus);
 
-  layers = layers.filter((layer) => layer?.meta?.layerKey === layerKey);
+  layers = layers.filter((layer : Layer) => layer?.meta?.layerKey === layerKey);
 
   useLayoutEffect(() => {
     setStatus(EditorStatus.LayerMake);
@@ -42,7 +40,7 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   }, []);
 
   const handleChange = useCallback(
-    (layer) => {
+    (layer : Layer) => {
       onRxColLayer(RxColOp.Update, layer, []);
       let type;
       if (layer.content) {

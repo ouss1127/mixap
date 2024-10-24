@@ -229,7 +229,7 @@ export function AGeneration({ canvasRef, id, mode, onChange, onDelete }: any) {
       description: '',
     },
 
-    // added by me
+    // 
     {
       component: 'Button',
       icon: <OpenAIOutlined />,
@@ -748,7 +748,7 @@ export const TextArea = ({
 }: any) => {
   const [val, setVal] = useState(value);
 
-  // Update local state when prop `value` changes /// Added by me
+  // Update local state when prop `value` changes /// 
   useEffect(() => {
     setVal(value);
   }, [value]);

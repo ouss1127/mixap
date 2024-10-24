@@ -20,6 +20,7 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
       opacity: 1,
       zIndex: get().layers.length,
       content,
+      activityId: ''
     };
     set((state) => ({ layers: [...state.layers, newLayer] }));
   },
