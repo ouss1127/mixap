@@ -64,7 +64,7 @@ export function AAudio({
     setVisibleControls(visible);
   };
 
-  // Added by me ////////////////////////////////////////
+  //  ////////////////////////////////////////
   const isAI = useStore((state) => state.playerSlice.isAI);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newText, setNewText] = useState('');
@@ -159,7 +159,7 @@ export function AAudio({
       accept:
         'audio/mpeg, audio/mp3, audio/webm, audio/wav, audio/ogg, audio/x-m4a',
     },
-    // added by me
+    // 
     isAI && {
       component: 'Button',
       icon: <BulbOutlined />,
@@ -330,7 +330,7 @@ export function AAudio({
                 )}
               </animated.div>
             </Popover>
-            {/* added by me */}
+            {/*  */}
             <Modal
               title='Enter the text you want to generate audio for:'
               visible={isModalVisible}

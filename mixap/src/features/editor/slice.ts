@@ -6,6 +6,7 @@ export enum EditorStatus {
   AuraMake = 'AuraMake',
   AuraPlay = 'AuraPlay',
   Tracking = 'Tracking',
+  LayerMake = "LayerMake",
 }
 
 interface State {

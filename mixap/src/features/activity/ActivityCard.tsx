@@ -57,26 +57,30 @@ export function ActivityCard({
    * @returns
    */
   const translateLabel = function (str) {
+    // Correction from if,if,if... to switch
     let trans = '';
-    if (str == 'Augmentation') {
-      trans = t('common.augmentation');
+    switch (str) {
+      case 'Augmentation':
+        trans = t('common.augmentation');
+        break;
+      case  'Validation ':
+        trans = t('common.validation');
+        break;
+      case 'Association':
+        trans = t('common.association');
+        break;
+      case 'Superposition':
+        trans = t('common.superposition');
+        break;
+      case 'Group':
+        trans = t('common.group-title');
+        break;
+      case 'SmartGroup':
+        trans = t('common.path-title');
+        break;
+      default:
+        return trans;
     }
-    if (str == 'Validation') {
-      trans = t('common.validation');
-    }
-    if (str == 'Assocation') {
-      trans = t('common.association');
-    }
-    if (str == 'Superposition') {
-      trans = t('common.superposition');
-    }
-    if (str == 'Group') {
-      trans = t('common.group-title');
-    }
-    if (str == 'Path') {
-      trans = t('common.path-title');
-    }
-    return trans;
   };
 
   /**

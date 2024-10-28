@@ -127,9 +127,9 @@ const Stats = ({ statsArray }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div >
       {statsArray.map((element, index) => (
-        <div>
+        <div key={element.id}>
           <div
             key={index}
             style={{ display: 'inline-flex' }}>

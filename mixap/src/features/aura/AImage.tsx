@@ -114,7 +114,7 @@ export function AImage({ canvasRef, id, mode, onChange, onDelete }: any) {
     }
   };
 
-  //Added by me
+  //
   const isAI = useStore((state) => state.playerSlice.isAI);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newText, setNewText] = useState('');

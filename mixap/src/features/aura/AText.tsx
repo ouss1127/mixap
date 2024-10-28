@@ -109,7 +109,7 @@ export function AText({ canvasRef, id, mode, onChange, onDelete }: any) {
     }
   };
 
-  // Added by me ////////////////////////////////////////
+  //  ////////////////////////////////////////
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newText, setNewText] = useState('');
   const [genText, setGenText] = useState('');
@@ -253,7 +253,7 @@ export function AText({ canvasRef, id, mode, onChange, onDelete }: any) {
       ],
       description: '',
     },
-    // added by me
+    // 
     isAI && {
       component: 'Button',
       icon: <OpenAIOutlined />,
@@ -700,7 +700,7 @@ export const TextArea = ({
 }: any) => {
   const [val, setVal] = useState(value);
 
-  // Update local state when prop `value` changes /// Added by me
+  // Update local state when prop `value` changes /// 
   useEffect(() => {
     setVal(value);
   }, [value]);

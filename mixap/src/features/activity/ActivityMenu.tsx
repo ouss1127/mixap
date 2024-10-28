@@ -251,6 +251,7 @@ export default function ActivityMenu() {
       footer={null}
       onCancel={hide}>
       <GirdCenter
+        key = 'cards'
         width={220}
         style={{ gridGap: 12 }}>
         {cards}
