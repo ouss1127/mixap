@@ -182,6 +182,13 @@
     "generate-qr-button": "Generer",
     "activity-not-pushed": "Aktiviteten skal først sendes til cloud !",
     "download-qr": "Download",
-    "link": "Link"
+    "link": "Link",
+    "stickers": "Klistermærker",
+    "choose-media": "Vælg et medie",
+    "local-images": "Τοπική εικόνα",
+    "search-gif": "Søg efter en GIF",
+    "gif": "GIF",
+    "no-results": "Intet resultat",
+    "search-icon": "Søg efter et ikon"
   }
 }

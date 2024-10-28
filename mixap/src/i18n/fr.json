@@ -195,6 +195,13 @@
     "customization-placeholder-title": "Personnaliser l'activité avec IA",
     "customization-placeholder-instruction": "Visualiser l'activité personnalisée avec IA",
     "customization-placeholder-description": "Une activité personnalisée avec IA",
-    "link": "Lien"
+    "link": "Lien",
+    "stickers": "Autocollants",
+    "choose-media": "Choisissez un média",
+    "local-images": "Image locale",
+    "search-gif": "Rechercher un GIF",
+    "gif": "GIF",
+    "no-results": "Pas de resultat",
+    "search-icon": "Rechercher une Icone"
   }
 }

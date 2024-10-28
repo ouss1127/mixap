@@ -10,6 +10,7 @@ import { AAudio } from './AAudio';
 import { AArrow } from './AArrow';
 import { AGeneration } from './AGeneration';
 import { ALink } from './ALink';
+import { ASticker } from './ASticker';
 // import { AList } from './AList';
 
 export const Aura = ({
@@ -127,6 +128,18 @@ export const Aura = ({
     case 'AGeneration':
       component = (
         <AGeneration
+          canvasRef={canvasRef}
+          id={id}
+          markerCfg={markerCfg}
+          mode={mode}
+          onChange={onChange}
+          onDelete={onDelete}
+        />
+      );
+      break;
+    case 'ASticker':
+      component = (
+        <ASticker
           canvasRef={canvasRef}
           id={id}
           markerCfg={markerCfg}

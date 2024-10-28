@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import useSound from 'use-sound';
 import { useSpring, animated } from '@react-spring/web';
 import { useThree } from '@react-three/fiber';
@@ -12,6 +12,7 @@ import {
   MessageOutlined,
   OpenAIOutlined,
   PlaySquareOutlined,
+  SearchOutlined,
   SoundOutlined,
 } from '@ant-design/icons';
 import ThreeDRotationOutlinedIcon from '@mui/icons-material/ThreeDRotationOutlined';
@@ -33,6 +34,8 @@ import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
 
 import { useTranslation } from 'react-i18next';
+import MediaModal from '@/components/MediaModal';
+import { ASticker } from '../aura/ASticker';
 
 export function Palette({ meta }: { meta: Record<string, unknown> }) {
   const [playPop] = useSound(popSnd);
@@ -125,6 +128,16 @@ export function Palette({ meta }: { meta: Record<string, unknown> }) {
       fontSize: 20,
       margin: 0,
     },
+  };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -229,6 +242,22 @@ export function Palette({ meta }: { meta: Record<string, unknown> }) {
             {t('common.video')}
           </Typography.Text>
         </Button>
+        <Button
+          disabled={disable}
+          size='middle'
+          shape='round'
+          css={btnStyle}
+          icon={<SearchOutlined css={iconBtnStyle} />}
+          onClick={showModal}>
+          <Typography.Text className='palette-btn-label'>
+            {t('common.stickers')}
+          </Typography.Text>
+        </Button>
+        <MediaModal
+          visible={isModalVisible}
+          onClose={handleCancel}
+          onImageClick={handleAddAura}
+        />
         <Button
           disabled={disable}
           size='middle'
