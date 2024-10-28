@@ -156,7 +156,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     onImageClick({
       activityId,
       type: 'ASticker',
-      content: { url: image.url || image },
+      content: { file: image },
       meta: {},
       cfg: {
         width: 200,
