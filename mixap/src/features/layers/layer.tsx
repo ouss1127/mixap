@@ -1,5 +1,4 @@
-import { useLayer } from '../../hooks/useLayer'; 
-import { Layer } from '../../enums/layer';
+import { Layer } from '../../enums/Layer';
 import { nanoid } from 'nanoid';
 import { StoreSlice } from '@/hooks/useStore';
 
@@ -20,13 +19,16 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
       opacity: 1,
       zIndex: get().layers.length,
       content,
-      activityId: ''
+      activityId: '',
+      meta: undefined,
     };
     set((state) => ({ layers: [...state.layers, newLayer] }));
   },
 
   removeLayer: (id: string) => {
-    set((state) => ({ layers: state.layers.filter((layer) => layer.id !== id) }));
+    set((state) => ({
+      layers: state.layers.filter((layer) => layer.id !== id),
+    }));
   },
 
   selectLayer: (id: string) => {
@@ -36,7 +38,7 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
   toggleLayerVisibility: (id: string) => {
     set((state) => ({
       layers: state.layers.map((layer) =>
-        layer.id === id ? { ...layer, visible: !layer.visible } : layer
+        layer.id === id ? { ...layer, visible: !layer.visible } : layer,
       ),
     }));
   },
@@ -44,7 +46,7 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
   setLayerOpacity: (id: string, opacity: number) => {
     set((state) => ({
       layers: state.layers.map((layer) =>
-        layer.id === id ? { ...layer, opacity } : layer
+        layer.id === id ? { ...layer, opacity } : layer,
       ),
     }));
   },
@@ -61,6 +63,7 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
         [layers[index], layers[index - 1]] = [layers[index - 1], layers[index]];
         return { layers };
       }
+      return { layers: state.layers };
     });
   },
 
@@ -72,6 +75,7 @@ export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
         [layers[index], layers[index + 1]] = [layers[index + 1], layers[index]];
         return { layers };
       }
+      return { layers: state.layers };
     });
   },
 });

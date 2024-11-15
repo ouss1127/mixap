@@ -4,4 +4,3 @@ supabase/supabase
 supabase/package.json
 supabase/package-lock.json
 node_modules
-MakeFile

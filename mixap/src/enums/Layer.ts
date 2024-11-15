@@ -6,7 +6,7 @@ export interface Layer {
   opacity: number;
   content: any;
   zIndex: number;
-  activityId: string; 
+  activityId: string;
   cfg?: {
     position?: any;
     rotation?: any;
