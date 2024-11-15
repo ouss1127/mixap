@@ -66,7 +66,7 @@
 //         setVisibleControls(visible);
 //     };
 
-//     // Added by me ////////////////////////////////////////
+//     //  ////////////////////////////////////////
 // // Add this state variable at the top of your component
 // const [textAreas, setTextAreas] = useState<string[]>([]);
 
@@ -211,7 +211,7 @@
 //             description: '',
 //         },
 
-//         // added by me
+//         // 
 //         {
 //             component: 'Button',
 //             icon: <BulbOutlined />,
@@ -644,7 +644,7 @@
 // }: any) => {
 //     const [val, setVal] = useState(value);
 
-//     // Update local state when prop `value` changes /// Added by me
+//     // Update local state when prop `value` changes /// 
 //     useEffect(() => {
 //         setVal(value);
 //     }, [value]);

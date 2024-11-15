@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { use100vh } from 'react-div-100vh';
 
 import { Button, Layout, Typography } from 'antd';
@@ -11,6 +11,8 @@ import { PageHeader } from '@ant-design/pro-layout';
 import { HomeOutlined } from '@ant-design/icons';
 
 import useStore from '../../hooks/useStore';
+console.log('Editor useStore imported');
+
 import { Board } from './Board';
 // import { useActivity } from '../../hooks/useActivity';
 // import { RxColOp } from '../../db/types';
@@ -18,6 +20,7 @@ import { Board } from './Board';
 const { Header, Content } = Layout;
 
 export default function Editor() {
+  console.log('Editor function start');
   const navigate = useNavigate();
   const height = use100vh();
 
@@ -31,6 +34,8 @@ export default function Editor() {
   ) as any;
 
   const tabReturn = document.location.href.endsWith('group') ? 'group' : document.location.href.endsWith('path') ? 'path' : 'activity';
+
+  console.log('Editor function end');
 
   return (
     <Layout

@@ -7,6 +7,7 @@ import editor from '../features/editor/slice';
 import player from '../features/player/slice';
 import mkUpload from '../features/markerUpload/slice';
 import auth from '../features/auth/slice';
+import layerSlice from '../features/layers/slice';
 
 export type StoreSlice<T extends object, E extends object = T> = (
   set: SetState<E extends T ? E : E & T>,
@@ -27,6 +28,7 @@ type State = StateFromFunctions<
     typeof player,
     typeof mkUpload,
     typeof auth,
+    typeof layerSlice,
   ]
 >;
 
@@ -42,5 +44,5 @@ const slice = (set: SetState<any>, get: GetState<any>) => ({
 const store = import.meta.env.NODE_ENV === 'production' ? slice : devtools(slice);
 
 const useStore = create<State>(store as any);
-
+console.log(useStore, 'useStore');
 export default useStore;

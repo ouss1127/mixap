@@ -196,6 +196,13 @@
     "audio-description": "Audio Description",
     "enter-text": "Enter text ...",
     "gpt": "GPT",
-    "link": "Link"
+    "link": "Link",
+    "stickers": "Stickers",
+    "choose-media": "Choose a media",
+    "local-images": "Local image",
+    "search-gif": "Search for a GIF",
+    "gif": "GIF",
+    "no-results": "No results",
+    "search-icon": "Search for an Icon"
   }
 }

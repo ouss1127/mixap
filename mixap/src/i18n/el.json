@@ -182,6 +182,13 @@
     "generate-qr-button": "Δημιουργία",
     "activity-not-pushed": "Η δραστηριότητα πρέπει πρώτα να σταλεί στο cloud !",
     "download-qr": "Λήψη",
-    "link": "Σύνδεσμος"
+    "link": "Σύνδεσμος",
+    "stickers": "Αυτοκόλλητα",
+    "choose-media": "Επιλέξτε ένα μέσο",
+    "local-images": "Τοπική εικόνα",
+    "search-gif": "Αναζήτηση για ένα GIF",
+    "gif": "GIF",
+    "no-results": "Κανένα αποτέλεσμα",
+    "search-icon": "Αναζήτηση για ένα εικονίδιο"
   }
 }

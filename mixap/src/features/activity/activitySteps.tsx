@@ -8,7 +8,7 @@ import { AuraPlay } from '../editor/AuraPlay';
 import { AuraMake } from '../editor/AuraMake';
 import { ActivityType } from './ActivityType';
 import { MarkerPreview } from '../markerUpload/MarkerPreview';
-import { MarkerCustom } from '../markerUpload/MarkerCustom'; // added by me
+import { MarkerCustom } from '../markerUpload/MarkerCustom'; // 
 import { AuraSelect } from '../editor/AuraSelect';
 import { ActivityDocType } from '../../db/types';
 import { AuraPath } from '../editor/AuraPath';
@@ -488,7 +488,7 @@ export function activitySteps({
         },
       ];
     }
-    // added by me
+    // 
     case ActivityType.Customization: {
       return [
         {

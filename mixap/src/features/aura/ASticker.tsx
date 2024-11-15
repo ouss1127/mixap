@@ -39,8 +39,15 @@ import { TRACES } from '../../db/traces';
 
 import { useTranslation } from 'react-i18next';
 
-export function AImage({ canvasRef, id, mode, onChange, onDelete }: any) {
-  const log = useLogger('AImage');
+export function ASticker({
+  canvasRef,
+  id,
+  mode,
+  onChange,
+  onDelete,
+  selectedImage,
+}: any) {
+  const log = useLogger('ASticker');
 
   log.debug('Render');
 
@@ -114,11 +121,15 @@ export function AImage({ canvasRef, id, mode, onChange, onDelete }: any) {
     }
   };
 
-  //
+  //Added by me
   const isAI = useStore((state) => state.playerSlice.isAI);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newText, setNewText] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
+
+  const handleModal = () => {
+    setIsModalVisible(true);
+  };
 
   const handleOk = async () => {
     if (!generatedImage) {
@@ -534,6 +545,13 @@ export function AImage({ canvasRef, id, mode, onChange, onDelete }: any) {
                     width: '70%',
                   }}
                 />
+                {/* {selectedImage && (
+                  <img
+                    src={selectedImage}
+                    alt='Selected'
+                    style={{ maxHeight: '100%', borderRadius: '10px' }}
+                  />
+                )} */}
                 {generatedImage && (
                   <img
                     src={generatedImage}
