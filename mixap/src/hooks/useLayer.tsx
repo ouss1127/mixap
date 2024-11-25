@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLayerStore, Layer } from '../features/layers/slice';
+import { Layer } from '../features/layers/slice';
+import layerSlice from '../features/layers/slice';
 
 export const useLayer = () => {
   const [layers, setLayers] = useState<Layer[]>([]);
-  const { addLayer, removeLayer, toggleVisibility } = useLayerStore();
+  const { addLayer, removeLayer, toggleVisibility } = layerSlice();
 
   useEffect(() => {
     // Example: Fetch initial layers from an API or initialize state

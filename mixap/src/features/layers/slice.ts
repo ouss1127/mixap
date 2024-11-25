@@ -18,7 +18,7 @@ interface LayerState {
   toggleVisibility: (id: string) => void;
 }
 
-const useLayerStore = create<LayerState>((set) => ({
+const layerSlice = create<LayerState>((set) => ({
   layers: [],
   addLayer: (name, content) => set((state) => ({
     layers: [...state.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layers.length, content }]
@@ -31,4 +31,4 @@ const useLayerStore = create<LayerState>((set) => ({
   }))
 }));
 
-export default useLayerStore;
+export default layerSlice;
