@@ -9,7 +9,7 @@ import useLogger from '../../hooks/useLogger';
 import { useThree } from '@react-three/fiber';
 import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
-import { Layer } from '../layers/slice';
+import Layer from '../layers/layer';
 
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');

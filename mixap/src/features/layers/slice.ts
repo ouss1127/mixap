@@ -1,14 +1,14 @@
 import create from 'zustand';
 
-export interface Layer {
-  cfg: any;
-  meta: any;
+export default interface Layer {
   id: string;
   name?: string;
   visible: boolean;
   opacity: number;
   zIndex: number;
   content: any;
+  cfg?: any;
+  meta?: any;
 }
 
 interface LayerState {
@@ -18,7 +18,7 @@ interface LayerState {
   toggleVisibility: (id: string) => void;
 }
 
-const layerSlice = create<LayerState>((set) => ({
+export const layerSlice = create<LayerState>((set) => ({
   layers: [],
   addLayer: (name, content) => set((state) => ({
     layers: [...state.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layers.length, content }]
@@ -30,5 +30,3 @@ const layerSlice = create<LayerState>((set) => ({
     layers: state.layers.map(layer => layer.id === id ? { ...layer, visible: !layer.visible } : layer)
   }))
 }));
-
-export default layerSlice;
