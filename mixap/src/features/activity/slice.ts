@@ -10,6 +10,7 @@ interface State {
   currActitityId: string;
   currMarkerFileURL: string;
   addDefaults: { id: string; type: string } | undefined;
+  layer: Layer;
   showMenu: () => void;
   hideMenu: () => void;
   showPushModal: () => void;

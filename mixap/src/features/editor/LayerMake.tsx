@@ -9,13 +9,13 @@ import useLogger from '../../hooks/useLogger';
 import { useThree } from '@react-three/fiber';
 import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
-import { Layer } from '@/enums/layer';
+import { Layer } from '../layers/slice';
 
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');
   log.debug('Render');
 
-  const { onRxColLayer } = useLayer();
+  useLayer();
   const [delayed, setDelayed] = useState(true);
 
   const { layerKey = undefined } = meta;
@@ -96,4 +96,8 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
       ))}
     </group>
   );
+}
+
+function onRxColLayer(Update: RxColOp, layer: Layer, arg2: never[]) {
+  throw new Error('Function not implemented.');
 }

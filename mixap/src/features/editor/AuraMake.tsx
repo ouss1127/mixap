@@ -18,6 +18,7 @@ export function AuraMake({ canvasRef, activityId, activity, meta = {} }: any) {
   log.debug('Render');
 
   const { onRxColAura } = useAura();
+  
   const [delayed, setDelayed] = useState(true);
 
   const { auraKey = undefined } = meta;

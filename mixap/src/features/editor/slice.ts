@@ -1,3 +1,4 @@
+import { Layer } from '@/enums/Layer';
 import { StoreSlice } from '../../hooks/useStore';
 
 export enum EditorStatus {
@@ -6,7 +7,7 @@ export enum EditorStatus {
   AuraMake = 'AuraMake',
   AuraPlay = 'AuraPlay',
   Tracking = 'Tracking',
-  LayerMake = "LayerMake",
+  LayerMake = 'LayerMake',
 }
 
 interface State {
@@ -19,6 +20,7 @@ interface State {
   percentage: number;
   markerImages: any[];
   markerFile: any;
+  layer:Layer[];
   setGlobalMode: (mode: string) => void;
   setTracking: (tracking: boolean) => void;
   setAnchoring: (tracking: boolean) => void;
@@ -43,6 +45,7 @@ const editorSlice: StoreSlice<IState> = (set /*, get*/) => ({
     markerImages: [],
     markerFile: null,
     arStatus: '',
+    layer: [],
     setGlobalMode: (globalMode) => {
       set((state): any => ({
         editorSlice: { ...state.editorSlice, globalMode },

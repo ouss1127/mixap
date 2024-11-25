@@ -39,6 +39,7 @@ const slice = (set: SetState<any>, get: GetState<any>) => ({
   ...player(set, get),
   ...mkUpload(set, get),
   ...auth(set, get),
+  ...layerSlice(set, get),
 });
 
 const store = import.meta.env.NODE_ENV === 'production' ? slice : devtools(slice);

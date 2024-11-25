@@ -1,77 +1,44 @@
-import { useLayer } from '../../hooks/useLayer'; 
-import { Layer } from '../../enums/layer';
-import { nanoid } from 'nanoid';
-import { StoreSlice } from '@/hooks/useStore';
+import React from 'react';
 
-export interface LayerState {
-  layers: Layer[];
-  selectedLayerId: string | null;
+interface LayerProps {
+  id: string;
+  name?: string;
+  visible: boolean;
+  opacity: number;
+  zIndex: number;
+  content: any;
+  onChange: (layer: LayerProps) => void;
+  onDelete: (id: string) => void;
 }
 
-export const layerSlice: StoreSlice<LayerState> = (set, get) => ({
-  layers: [],
-  selectedLayerId: null,
+const Layer: React.FC<LayerProps> = ({
+  id,
+  name,
+  visible,
+  opacity,
+  zIndex,
+  content,
+  onChange,
+  onDelete,
+}) => {
+  const handleVisibilityToggle = () => {
+    onChange({ id, name, visible: !visible, opacity, zIndex, content });
+  };
 
-  addLayer: (name: string, content: any) => {
-    const newLayer: Layer = {
-      id: nanoid(),
-      name,
-      visible: true,
-      opacity: 1,
-      zIndex: get().layers.length,
-      content,
-      activityId: ''
-    };
-    set((state) => ({ layers: [...state.layers, newLayer] }));
-  },
+  const handleDelete = () => {
+    onDelete(id);
+  };
 
-  removeLayer: (id: string) => {
-    set((state) => ({ layers: state.layers.filter((layer) => layer.id !== id) }));
-  },
+  return (
+    <div style={{ opacity: visible ? 1 : 0.5, zIndex }}>
+      <h3>{name || `Layer ${id}`}</h3>
+      <div>{content}</div>
+      <button onClick={handleVisibilityToggle}>
+        {visible ? 'Hide' : 'Show'}
+      </button>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
+};
 
-  selectLayer: (id: string) => {
-    set({ selectedLayerId: id });
-  },
-
-  toggleLayerVisibility: (id: string) => {
-    set((state) => ({
-      layers: state.layers.map((layer) =>
-        layer.id === id ? { ...layer, visible: !layer.visible } : layer
-      ),
-    }));
-  },
-
-  setLayerOpacity: (id: string, opacity: number) => {
-    set((state) => ({
-      layers: state.layers.map((layer) =>
-        layer.id === id ? { ...layer, opacity } : layer
-      ),
-    }));
-  },
-
-  reorderLayers: (newOrder: Layer[]) => {
-    set({ layers: newOrder });
-  },
-
-  moveLayerUp: (id: string) => {
-    set((state) => {
-      const index = state.layers.findIndex((layer) => layer.id === id);
-      if (index > 0) {
-        const layers = [...state.layers];
-        [layers[index], layers[index - 1]] = [layers[index - 1], layers[index]];
-        return { layers };
-      }
-    });
-  },
-
-  moveLayerDown: (id: string) => {
-    set((state) => {
-      const index = state.layers.findIndex((layer) => layer.id === id);
-      if (index < state.layers.length - 1) {
-        const layers = [...state.layers];
-        [layers[index], layers[index + 1]] = [layers[index + 1], layers[index]];
-        return { layers };
-      }
-    });
-  },
-});
+export default Layer;
