@@ -40,7 +40,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
   const [icons, setIcons] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const API_KEY_TENOR = import.meta.env.VITE_APP_API_TENOR;
-  const API_KEY_FLATICON = import.meta.env.VITE_APP_API_FLATICON;
+  const API_KEY_ICONFINDER = import.meta.env.VITE_APP_API_ICONFINDER;
   const [localImages, setLocalImages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -49,14 +49,6 @@ const MediaModal: React.FC<MediaModalProps> = ({
       fetchLocalImages();
     }
   }, [visible]);
-
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     accept: 'application/json',
-  //     Authorization: `Bearer FPSX0a35fc9fac34424d98b92659d2f6a706`,
-  //   },
-  // };
 
   const fetchGifs = async (query: string) => {
     const response = await fetch(
@@ -96,20 +88,24 @@ const MediaModal: React.FC<MediaModalProps> = ({
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_KEY_FLATICON}`,
+        Authorization: `Bearer ${API_KEY_ICONFINDER}`,
       },
     };
 
-    const response = await fetch(
-      `https://api.flaticon.com/v3/search/icons?q=${query}&limit=12`,
-      options,
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      const response = await fetch(
+        `https://api.iconfinder.com/v4/icons/search?query=${query}&count=10`,
+        options,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('icons', data);
+      setIcons(data.icons || []);
+    } catch (error) {
+      console.error('Failed to fetch icons:', error);
     }
-    const data = await response.json();
-    console.log('icons', data);
-    setIcons(data.data || []);
   };
 
   const fetchLocalImages = () => {
@@ -153,10 +149,12 @@ const MediaModal: React.FC<MediaModalProps> = ({
   const activityId = useStore((state) => state.activitySlice.currActitityId);
 
   const handleImageClick = (image: any) => {
+    const isGif = image.media_formats && image.media_formats.gif;
+    const file = isGif ? image.media_formats.gif.url : image;
     onImageClick({
       activityId,
       type: 'ASticker',
-      content: { file: image },
+      content: { file },
       meta: {},
       cfg: {
         width: 200,
@@ -260,7 +258,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
             )}
           </div>
         </TabPane>
-        {/* <TabPane
+        <TabPane
           tab='Icône'
           key='3'>
           <Input
@@ -272,7 +270,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
             {icons.map((icon) => (
               <img
                 key={icon.id}
-                src={icon.url} 
+                src={icon.url}
                 alt={icon.title}
                 style={{
                   width: '100px',
@@ -292,7 +290,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
               />
             ))}
           </div>
-        </TabPane> */}
+        </TabPane>
       </Tabs>
     </Modal>
   );

@@ -135,18 +135,22 @@ export function Image3f(props: any) {
   useEffect(() => {
     if (!file) return;
 
-    let objectUrl;
+    let objectUrl: string | undefined;
     const urlCreator = window.URL || window.webkitURL;
 
     if (typeof file === 'string' || file instanceof String) {
-      setUrl(file);
-    } else {
+      setUrl(file as string);
+    } else if (file instanceof Blob || file instanceof File) {
       objectUrl = urlCreator.createObjectURL(file);
       setUrl(objectUrl);
+    } else {
+      console.error('Invalid file type:', file);
     }
 
     return () => {
-      urlCreator.revokeObjectURL(objectUrl);
+      if (objectUrl) {
+        urlCreator.revokeObjectURL(objectUrl);
+      }
     };
   }, [file]);
 

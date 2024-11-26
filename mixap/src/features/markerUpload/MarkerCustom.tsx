@@ -284,7 +284,7 @@ export function MarkerCustom({
           </audio>
         )}
         {messages.map((message, index) => (
-          <Typography.Paragraph>
+          <Typography.Paragraph key={index}>
             <pre
               key={index}
               {...(message.isBot
