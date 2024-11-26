@@ -1,6 +1,8 @@
 import create from 'zustand';
+import { StoreSlice } from '../../hooks/useStore';
+import { Slice } from '@tiptap/pm/model';
 
-export default interface Layer {
+export interface Layer {
   id: string;
   name?: string;
   visible: boolean;
@@ -11,22 +13,33 @@ export default interface Layer {
   meta?: any;
 }
 
-interface LayerState {
+interface State {
   layers: Layer[];
   addLayer: (name: string, content: any) => void;
   removeLayer: (id: string) => void;
   toggleVisibility: (id: string) => void;
 }
 
-export const layerSlice = create<LayerState>((set) => ({
+interface LayerState {
+  layerSlice: State;
+}
+
+const layerSlice: StoreSlice<LayerState> = (set /*, get*/) => ({
+  layerSlice: {
   layers: [],
-  addLayer: (name, content) => set((state) => ({
-    layers: [...state.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layers.length, content }]
-  })),
-  removeLayer: (id) => set((state) => ({
-    layers: state.layers.filter(layer => layer.id !== id)
-  })),
-  toggleVisibility: (id) => set((state) => ({
-    layers: state.layers.map(layer => layer.id === id ? { ...layer, visible: !layer.visible } : layer)
-  }))
-}));
+  addLayer: (name, content) => { set((state): any => ({
+    layers: [...state.layerSlice.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layerSlice.layers.length, content }]
+  }));
+},
+  removeLayer: (id) =>{ set((state): any => ({
+    layers: state.layerSlice.layers.filter((layer) => layer.id !== id)
+  }));
+},
+  toggleVisibility: (id) =>{ set((state): any => ({
+    layers: state.layerSlice.layers.map(layer => layer.id === id ? { ...layer, visible: !layer.visible } : layer)
+  }));
+},
+},
+});
+
+export default layerSlice;

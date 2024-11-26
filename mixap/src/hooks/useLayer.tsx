@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import { layerSlice } from '../features/layers/slice';
-import Layer from '../features/layers/slice';
+import layerSlice from '../features/layers/slice';
+import type { Layer } from '../features/layers/slice';
+import useStore from './useStore';
 
 export const useLayer = () => {
   const [layers, setLayers] = useState<Layer[]>([]);
-  const { addLayer, removeLayer, toggleVisibility } = layerSlice();
+  const addLayer = useStore((state) => state.layerSlice.addLayer);
+  const removeLayer = useStore((state) => state.layerSlice.removeLayer);
+  const toggleVisibility = useStore((state) => state.layerSlice.toggleVisibility);
 
   useEffect(() => {
     const fetchLayers = async () => {
-      const initialLayers: Layer[] = []; 
+      const initialLayers: Layer[] = [];
       setLayers(initialLayers);
     };
 
