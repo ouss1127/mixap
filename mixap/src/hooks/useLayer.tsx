@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import layerSlice from '../features/layers/slice';
-import type { Layer } from '../features/layers/slice';
+import type { Layer, Aura } from '../features/layers/slice';
 import useStore from './useStore';
 
 export const useLayer = () => {
@@ -8,6 +8,7 @@ export const useLayer = () => {
   const addLayer = useStore((state) => state.layerSlice.addLayer);
   const removeLayer = useStore((state) => state.layerSlice.removeLayer);
   const toggleVisibility = useStore((state) => state.layerSlice.toggleVisibility);
+  const addAuraToLayer = useStore((state) => state.layerSlice.addAuraToLayer);
 
   useEffect(() => {
     const fetchLayers = async () => {
@@ -30,10 +31,15 @@ export const useLayer = () => {
     toggleVisibility(id);
   };
 
+  const addNewAuraToLayer = (layerId: string, aura: Aura) => {
+    addAuraToLayer(layerId, aura);
+  };
+
   return {
     layers,
     addNewLayer,
     removeExistingLayer,
     toggleLayerVisibility,
+    addNewAuraToLayer,
   };
 };

@@ -2,6 +2,17 @@ import create from 'zustand';
 import { StoreSlice } from '../../hooks/useStore';
 import { Slice } from '@tiptap/pm/model';
 
+export interface Aura {
+  id: string;
+  type: string;
+  visible: boolean;
+  opacity: number;
+  zIndex: number;
+  content: any;
+  cfg?: any;
+  meta?: any;
+}
+
 export interface Layer {
   id: string;
   name?: string;
@@ -9,6 +20,7 @@ export interface Layer {
   opacity: number;
   zIndex: number;
   content: any;
+  auras: Aura[];
   cfg?: any;
   meta?: any;
 }
@@ -18,6 +30,7 @@ interface State {
   addLayer: (name: string, content: any) => void;
   removeLayer: (id: string) => void;
   toggleVisibility: (id: string) => void;
+  addAuraToLayer: (layerId: string, aura: Aura) => void;
 }
 
 interface LayerState {
@@ -28,7 +41,7 @@ const layerSlice: StoreSlice<LayerState> = (set /*, get*/) => ({
   layerSlice: {
   layers: [],
   addLayer: (name, content) => { set((state): any => ({
-    layers: [...state.layerSlice.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layerSlice.layers.length, content }]
+    layers: [...state.layerSlice.layers, { id: Date.now().toString(), name, visible: true, opacity: 1, zIndex: state.layerSlice.layers.length, content, auras: [] }]
   }));
 },
   removeLayer: (id) =>{ set((state): any => ({
@@ -39,6 +52,13 @@ const layerSlice: StoreSlice<LayerState> = (set /*, get*/) => ({
     layers: state.layerSlice.layers.map(layer => layer.id === id ? { ...layer, visible: !layer.visible } : layer)
   }));
 },
+addAuraToLayer: (layerId, aura) => {
+      set((state): any => ({
+        layers: state.layerSlice.layers.map((layer) =>
+          layer.id === layerId ? { ...layer, auras: [...layer.auras, aura] } : layer,
+        ),
+      }));
+    },
 },
 });
 

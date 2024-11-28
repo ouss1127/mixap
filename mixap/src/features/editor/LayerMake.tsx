@@ -1,6 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { isEqualWith } from 'lodash';
-
 import { RxColOp } from '../../db/types';
 import useStore from '../../hooks/useStore';
 import { useLayer} from '../../hooks/useLayer';
@@ -10,12 +9,13 @@ import { useThree } from '@react-three/fiber';
 import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
 import Layer from '../layers/layer';
+import Aura from '../aura/aura';
 
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');
   log.debug('Render');
 
-  useLayer();
+  const { onRxColLayer, addNewAuraToLayer } = useLayer();
   const [delayed, setDelayed] = useState(true);
 
   const { layerKey = undefined } = meta;
@@ -31,13 +31,13 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
 
   const setStatus = useStore((state) => state.editorSlice.setStatus);
 
-  layers = layers.filter((layer : Layer) => layer?.meta?.layerKey === layerKey);
+  layers = layers.filter((layer) => layer?.meta?.layerKey === layerKey);
 
   useLayoutEffect(() => {
     setStatus(EditorStatus.LayerMake);
     const timeout = setTimeout(() => setDelayed(false), 1000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [setStatus]);
 
   const handleChange = useCallback(
     (layer : Layer) => {
@@ -57,47 +57,66 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
 
       trace(type, { layerId: layer.id });
     },
-    [onRxColLayer],
+    [onRxColLayer, trace],
   );
 
   const handleDelete = useCallback(
     (layer) => {
       onRxColLayer(RxColOp.Remove, layer, []);
-
       trace(TRACES.REMOVE_LAYER, { layerId: layer.id });
     },
-    [onRxColLayer],
+    [onRxColLayer, trace],
   );
 
-  const camera = useThree<any>(({ camera }) => camera);
+  const handleAddAura = useCallback(
+    (layerId: string, aura: Aura) => {
+      addNewAuraToLayer(layerId, aura);
+    },
+    [addNewAuraToLayer],
+  );
+
+  const camera = useThree(({ camera }) => camera);
 
   useLayoutEffect(() => {
     camera.fov = 75;
     camera.near = 0.1;
     camera.far = 1000;
     camera.updateProjectionMatrix();
-  }, []);
+  }, [camera]);
 
   return delayed ? null : (
-    <group
-      visible={true}
-      position={[0, 0, 0]}>
-      {layers.map((layer) => (
-        <Layer
-          key={layer.id}
-          id={layer.id}
-          type={layer.type}
-          mode={LayerMode.CANVAS}
-          canvasRef={canvasRef}
-          markerCfg={activity.markerImagesCfg[0]}
-          onChange={handleChange}
-          onDelete={handleDelete.bind(null, layer)}
-        />
+    <div>
+      <group visible={true} position={[0, 0, 0]}>
+        {layers.map((layer) => (
+          <Layer
+            key={layer.id}
+            id={layer.id}
+            name={layer.name}
+            visible={layer.visible}
+            opacity={layer.opacity}
+            zIndex={layer.zIndex}
+            content={layer.content}
+            onChange={handleChange}
+            onDelete={handleDelete.bind(null, layer)}
+          >
+          {layer.auras.map((aura) => (
+            <Aura
+              key={aura.id}
+              id={aura.id}
+              type={aura.type}
+              mode={AuraMode.CANVAS}
+              canvasRef={canvasRef}
+              markerCfg={activity.markerImagesCfg[0]}
+              onChange={handleChange}
+              onDelete={handleDelete.bind(null, aura)}
+            />
+          ))}
+          <button onClick={() => handleAddAura(layer.id, { id: Date.now().toString(), type: 'NewAura', visible: true, opacity: 1, zIndex: 0, content: {} })}>
+            Add Aura
+          </button>
+        </Layer>
       ))}
     </group>
-  );
-}
-
-function onRxColLayer(Update: RxColOp, layer: Layer, arg2: never[]) {
-  throw new Error('Function not implemented.');
+  </div>
+);
 }
