@@ -19,11 +19,11 @@ type Gif = {
   };
 };
 
-type Icon = {
-  id: string;
-  title: string;
-  url: string;
-};
+// type Icon = {
+//   id: string;
+//   title: string;
+//   url: string;
+// };
 
 interface MediaModalProps {
   visible: boolean;
@@ -37,10 +37,10 @@ const MediaModal: React.FC<MediaModalProps> = ({
   onImageClick,
 }) => {
   const [gifs, setGifs] = useState<Gif[]>([]);
-  const [icons, setIcons] = useState([]);
+  // const [icons, setIcons] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const API_KEY_TENOR = import.meta.env.VITE_APP_API_TENOR;
-  const API_KEY_ICONFINDER = import.meta.env.VITE_APP_API_ICONFINDER;
+  // const API_KEY_ICONFINDER = import.meta.env.VITE_APP_API_ICONFINDER;
   const [localImages, setLocalImages] = useState<string[]>([]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     );
     const data = await response.json();
     console.log('gif', data);
-    setGifs(data.results || []); // Adaptez cette ligne en fonction de la structure de votre réponse API
+    setGifs(data.results || []);
   };
 
   const fetchDefaultGifs = async () => {
@@ -64,49 +64,33 @@ const MediaModal: React.FC<MediaModalProps> = ({
       `https://tenor.googleapis.com/v2/search?q=trending&key=${API_KEY_TENOR}&limit=52`,
     );
     const data = await response.json();
-    setGifs(data.results || []); // Adaptez cette ligne en fonction de la structure de votre réponse API
+    setGifs(data.results || []);
   };
-  // const fetchIcons = async (query: string) => {
-  //   const response = await fetch(
-  //     `https://api.iconfinder.com/v4/icons/search?apikey=${API_ICONFINDER}&query=${query}&count=12`,
-  //   );
-  //   const data = await response.json();
-  //   console.log('icons', data);
-  //   setIcons(data.resources || []);
-  // };
 
   // const fetchIcons = async (query: string) => {
-  //   const response = await fetch(
-  //     `https://api.freepik.com/v2/icons?term=${query}&count=12`,
-  //   );
-  //   const data = await response.json();
-  //   console.log('icons', data);
-  //   setIcons(data.resources || []);
-  // };
-  const fetchIcons = async (query: string) => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${API_KEY_ICONFINDER}`,
-      },
-    };
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       accept: 'application/json',
+  //       Authorization: `Bearer ${API_KEY_ICONFINDER}`,
+  //     },
+  //   };
 
-    try {
-      const response = await fetch(
-        `https://api.iconfinder.com/v4/icons/search?query=${query}&count=10`,
-        options,
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('icons', data);
-      setIcons(data.icons || []);
-    } catch (error) {
-      console.error('Failed to fetch icons:', error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(
+  //       `https://api.iconfinder.com/v4/icons/search?query=${query}&count=10`,
+  //       options,
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     console.log('icons', data);
+  //     setIcons(data.icons || []);
+  //   } catch (error) {
+  //     console.error('Failed to fetch icons:', error);
+  //   }
+  // };
 
   const fetchLocalImages = () => {
     const images = [
@@ -258,7 +242,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
             )}
           </div>
         </TabPane>
-        <TabPane
+        {/* <TabPane
           tab='Icône'
           key='3'>
           <Input
@@ -290,7 +274,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
               />
             ))}
           </div>
-        </TabPane>
+        </TabPane> */}
       </Tabs>
     </Modal>
   );

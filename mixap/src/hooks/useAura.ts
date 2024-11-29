@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useRxCollection } from 'rxdb-hooks';
-import { RxDocumentBase,RxDocument,RxCollection } from 'rxdb';
+import { RxDocumentBase, RxDocument, RxCollection } from 'rxdb';
 
 import { AuraDocType, RxColAttachMapOp, RxColOp } from '../db/types';
 import useLogger from '../hooks/useLogger';
@@ -19,7 +19,11 @@ export function useAura() {
   const set = useStore((state) => state.auraSlice.set);
 
   const onRxColAura = useCallback(
-    (rxColOp: RxColOp, payload: Partial<AuraDocType>, activitiesId: string[]) => {
+    (
+      rxColOp: RxColOp,
+      payload: Partial<AuraDocType>,
+      activitiesId: string[],
+    ) => {
       log.debug('== add aura many', rxColAuras);
 
       if (!rxColAuras) {
@@ -31,7 +35,9 @@ export function useAura() {
         switch (rxColOp) {
           case RxColOp.Add: {
             log.debug('== add auras many', payload);
-            const doc = (await rxColAuras.insert(payload as AuraDocType)).toJSON();
+            const doc = (
+              await rxColAuras.insert(payload as AuraDocType)
+            ).toJSON();
             add(doc as any);
 
             break;
@@ -55,12 +61,12 @@ export function useAura() {
             remove(payload.id as string);
 
             let doc = await rxColAuras
-            .findOne({
-              selector: {
-                id: payload.id,
-              },
-            })
-            .exec();
+              .findOne({
+                selector: {
+                  id: payload.id,
+                },
+              })
+              .exec();
 
             if (doc) {
               doc = (await doc.remove()) as any;
@@ -126,7 +132,7 @@ export function useAura() {
                     data: file as any, // (string|Blob|Buffer) data of the attachment
                     // @ts-ignore
                     type: (file.type as string) || 'plain/text', // (string) type of the attachment-data like 'image/jpeg'
-                  }
+                  },
                   //false, // (boolean, optional, default=true) skipIfSame:If true and attachment already exists with same data, the write will be skipped
                 );
               } catch (error) {
@@ -139,8 +145,8 @@ export function useAura() {
 
           case RxColOp.FindAll: {
             let docs = await rxColAuras.find(payload as any).exec();
-            
-            console.log('USEAURA',payload,docs);
+
+            console.log('USEAURA', payload, docs);
             try {
               docs = (await Promise.all(
                 docs.map(
@@ -158,31 +164,34 @@ export function useAura() {
           }
 
           case RxColOp.FindAllActivities: {
-            let allDocs: RxDocument<AuraDocType, {}>[] = [];
-            activitiesId.map(async (activityId)=>{
+            let allDocs: RxDocument<AuraDocType, object>[] = [];
+            activitiesId.map(async (activityId) => {
               const myLoad = {
                 selector: {
                   activityId,
                 },
               } as any;
-            const docs = await rxColAuras.find(myLoad as any).exec();
-            allDocs.push(docs[0]);
-            console.log(allDocs);
+              const docs = await rxColAuras.find(myLoad as any).exec();
+              allDocs.push(docs[0]);
+              console.log(allDocs);
 
-          try {
-            allDocs = (await Promise.all(
-              allDocs.map(
-                mapDocAttachment.bind(null, RxColAttachMapOp.AuraAttachments),
-              ),
-            )) as any;
+              try {
+                allDocs = (await Promise.all(
+                  allDocs.map(
+                    mapDocAttachment.bind(
+                      null,
+                      RxColAttachMapOp.AuraAttachments,
+                    ),
+                  ),
+                )) as any;
 
-            set(allDocs as Partial<AuraDocType>[]);
-            log.debug('found aura docs success', allDocs);
-            console.log('USEAURA',payload,allDocs);
-          } catch (error) {
-            log.error('found docs error', error);
-          }
-          })
+                set(allDocs as Partial<AuraDocType>[]);
+                log.debug('found aura docs success', allDocs);
+                console.log('USEAURA', payload, allDocs);
+              } catch (error) {
+                log.error('found docs error', error);
+              }
+            });
 
             break;
           }

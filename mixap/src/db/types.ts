@@ -64,6 +64,7 @@ export type AuraDocType = {
     | 'APopover'
     | 'A3d'
     | 'AImage'
+    | 'ASticker'
     | 'APool'
     | 'AFile'
     | 'AVideo'

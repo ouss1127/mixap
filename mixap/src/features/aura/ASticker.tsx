@@ -39,14 +39,7 @@ import { TRACES } from '../../db/traces';
 
 import { useTranslation } from 'react-i18next';
 
-export function ASticker({
-  canvasRef,
-  id,
-  mode,
-  onChange,
-  onDelete,
-  selectedImage,
-}: any) {
+export function ASticker({ canvasRef, id, mode, onChange, onDelete }: any) {
   const log = useLogger('ASticker');
 
   log.debug('Render');
@@ -126,10 +119,6 @@ export function ASticker({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newText, setNewText] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
-
-  const handleModal = () => {
-    setIsModalVisible(true);
-  };
 
   const handleOk = async () => {
     if (!generatedImage) {
