@@ -9,16 +9,26 @@ import { useThree } from '@react-three/fiber';
 import { useTrace } from '../../hooks/useTrace';
 import { TRACES } from '../../db/traces';
 import Layer from '../layers/layer';
-import Aura from '../aura/aura';
+import type { Layer as LayerType } from '../features/layers/slice';
+import { Aura } from '../aura/Aura';
+import { useAura } from '../../hooks/useAura';
+import { AuraMode } from './Board';
+
 
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');
   log.debug('Render');
 
-  const { onRxColLayer, addNewAuraToLayer } = useLayer();
+  const { onRxColLayer, addNewLayer, addNewAuraToLayer } = useLayer();
+  
+  const { onRxColAura } = useAura();
+  const { auraKey = undefined } = meta;
+
+
   const [delayed, setDelayed] = useState(true);
 
   const { layerKey = undefined } = meta;
+
   const { trace } = useTrace({});
 
   let layers = useStore(
@@ -29,16 +39,36 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
       l1.length === l2.length,
   );
 
+  let auras = useStore(
+    (state) =>
+      state.auraSlice.auras?.filter((aura) => aura.activityId === activityId),
+    (a1, a2) =>
+      isEqualWith(a1, a2, (a1v, a2v) => a1v.id === a2v.id) &&
+      a1.length === a2.length,
+  );  
+
   const setStatus = useStore((state) => state.editorSlice.setStatus);
 
   layers = layers.filter((layer) => layer?.meta?.layerKey === layerKey);
+  auras = auras.filter((aura) => aura?.meta?.auraKey === auraKey);
 
   useLayoutEffect(() => {
     setStatus(EditorStatus.LayerMake);
     const timeout = setTimeout(() => setDelayed(false), 1000);
     return () => clearTimeout(timeout);
   }, [setStatus]);
-
+  const handleAddAura = (selectedLayer: LayerType, p0: { id: string; type: string; visible: boolean; opacity: number; zIndex: number; content: {}; }) => {
+    if (selectedLayer) {
+      const newAura = {
+        id: Date.now().toString(),
+        type: 'AText',
+        content: { value: 'New Aura' },
+      };
+      addNewAuraToLayer(selectedLayer, newAura);
+      onRxColAura('Add', newAura, []); 
+    }
+  };
+  
   const handleChange = useCallback(
     (layer : Layer) => {
       onRxColLayer(RxColOp.Update, layer, []);
@@ -66,13 +96,6 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
       trace(TRACES.REMOVE_LAYER, { layerId: layer.id });
     },
     [onRxColLayer, trace],
-  );
-
-  const handleAddAura = useCallback(
-    (layerId: string, aura: Aura) => {
-      addNewAuraToLayer(layerId, aura);
-    },
-    [addNewAuraToLayer],
   );
 
   const camera = useThree(({ camera }) => camera);

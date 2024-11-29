@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@emotion/react": "^11.13.5",
     "make": "^0.8.1",
     "tsc": "^2.0.4",
     "vite": "^5.4.9"

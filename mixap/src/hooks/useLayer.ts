@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import layerSlice from '../features/layers/slice';
-import type { Layer, Aura } from '../features/layers/slice';
+import type { Layer } from '../features/layers/slice';
+import  Aura from '../features/aura/Aura'
 import useStore from './useStore';
 
 export const useLayer = () => {
