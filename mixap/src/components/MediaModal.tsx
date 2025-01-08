@@ -127,7 +127,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     fetchGifs(value);
-    fetchIcons(value);
+    // fetchIcons(value);
   };
 
   const activityId = useStore((state) => state.activitySlice.currActitityId);
