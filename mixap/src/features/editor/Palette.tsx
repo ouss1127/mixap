@@ -37,6 +37,35 @@ import { useTranslation } from 'react-i18next';
 import MediaModal from '@/components/MediaModal';
 import { ASticker } from '../aura/ASticker';
 
+/**
+ * Palette component provides a set of buttons to add different types of auras to the editor.
+ *
+ * @param {Object} props - The component props.
+ * @param {Record<string, unknown>} props.meta - Metadata associated with the auras.
+ *
+ * @returns {JSX.Element} The rendered Palette component.
+ *
+ * @component
+ *
+ * @example
+ * // Usage example:
+ * <Palette meta={{ key: 'value' }} />
+ *
+ * @remarks
+ * This component uses various hooks and libraries such as `useSound`, `useAura`, `useStore`, `useThree`, `useTrace`, and `useTranslation`.
+ * It also utilizes `useSpring` for animation and `useLayoutEffect` for layout calculations.
+ *
+ * The component renders a set of buttons that allow users to add different types of auras (e.g., text, image, video, audio, etc.) to the editor.
+ * Each button is styled and configured to handle specific aura types.
+ *
+ * The `handleAddAura` function is used to add auras with specific configurations and metadata.
+ *
+ * The component also includes a modal for selecting media and handles its visibility state.
+ *
+ * @see {@link https://react-spring.io/} for `useSpring`
+ * @see {@link https://reactjs.org/docs/hooks-reference.html#uselayouteffect} for `useLayoutEffect`
+ * @see {@link https://react.i18next.com/} for `useTranslation`
+ */
 export function Palette({ meta }: { meta: Record<string, unknown> }) {
   const [playPop] = useSound(popSnd);
   const { onRxColAura } = useAura();

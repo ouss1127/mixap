@@ -31,6 +31,40 @@ interface MediaModalProps {
   onImageClick: (imageData: any) => void;
 }
 
+/**
+ * MediaModal component allows users to select media items such as GIFs and local images.
+ *
+ * @component
+ * @param {MediaModalProps} props - The properties for the MediaModal component.
+ * @param {boolean} props.visible - Determines if the modal is visible.
+ * @param {() => void} props.onClose - Function to call when the modal is closed.
+ * @param {(image: any) => void} props.onImageClick - Function to call when an image is clicked.
+ *
+ * @returns {JSX.Element} The rendered MediaModal component.
+ *
+ * @example
+ * <MediaModal
+ *   visible={true}
+ *   onClose={() => console.log('Modal closed')}
+ *   onImageClick={(image) => console.log('Image clicked', image)}
+ * />
+ *
+ * @remarks
+ * This component fetches GIFs from the Tenor API and displays local images.
+ * It uses the `useEffect` hook to fetch default GIFs and local images when the modal becomes visible.
+ * The `handleSearch` function fetches GIFs based on the search query.
+ * The `handleImageClick` function handles the image click event and calls the `onImageClick` prop with the selected image.
+ *
+ * @requires useState
+ * @requires useEffect
+ * @requires useStore
+ * @requires Modal
+ * @requires Tabs
+ * @requires TabPane
+ * @requires Input
+ * @requires SearchOutlined
+ * @requires t
+ */
 const MediaModal: React.FC<MediaModalProps> = ({
   visible,
   onClose,
@@ -43,6 +77,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
   // const API_KEY_ICONFINDER = import.meta.env.VITE_APP_API_ICONFINDER;
   const [localImages, setLocalImages] = useState<string[]>([]);
 
+  // Fetch default GIFs and local images when the modal becomes visible
   useEffect(() => {
     if (visible) {
       fetchDefaultGifs();
@@ -50,6 +85,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     }
   }, [visible]);
 
+  // Fetch GIFs based on the search query
   const fetchGifs = async (query: string) => {
     const response = await fetch(
       `https://tenor.googleapis.com/v2/search?q=${query}&key=${API_KEY_TENOR}&limit=46`,
@@ -59,6 +95,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     setGifs(data.results || []);
   };
 
+  // Fetch default trending GIFs
   const fetchDefaultGifs = async () => {
     const response = await fetch(
       `https://tenor.googleapis.com/v2/search?q=trending&key=${API_KEY_TENOR}&limit=52`,
@@ -67,31 +104,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     setGifs(data.results || []);
   };
 
-  // const fetchIcons = async (query: string) => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       accept: 'application/json',
-  //       Authorization: `Bearer ${API_KEY_ICONFINDER}`,
-  //     },
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       `https://api.iconfinder.com/v4/icons/search?query=${query}&count=10`,
-  //       options,
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     console.log('icons', data);
-  //     setIcons(data.icons || []);
-  //   } catch (error) {
-  //     console.error('Failed to fetch icons:', error);
-  //   }
-  // };
-
+  // Fetch local images
   const fetchLocalImages = () => {
     const images = [
       '/image/arrow.png',
@@ -124,6 +137,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
     setLocalImages(images);
   };
 
+  // Handle search input change
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     fetchGifs(value);
@@ -132,6 +146,7 @@ const MediaModal: React.FC<MediaModalProps> = ({
 
   const activityId = useStore((state) => state.activitySlice.currActitityId);
 
+  // Handle image click event
   const handleImageClick = (image: any) => {
     const isGif = image.media_formats && image.media_formats.gif;
     const file = isGif ? image.media_formats.gif.url : image;
@@ -161,7 +176,6 @@ const MediaModal: React.FC<MediaModalProps> = ({
         maxHeight: '60vh',
       }}>
       <Tabs defaultActiveKey='1'>
-        {' '}
         <TabPane
           tab={t('common.local-images')}
           key='1'>

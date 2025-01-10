@@ -39,6 +39,29 @@ import { TRACES } from '../../db/traces';
 
 import { useTranslation } from 'react-i18next';
 
+/**
+ * ASticker component is responsible for rendering and managing the behavior of a sticker element
+ * within a 3D canvas. It supports various modes such as ARVIEW, ARCANVAS, and CANVAS, and allows
+ * for interactions like dragging, rotating, and resizing.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.RefObject<HTMLCanvasElement>} props.canvasRef - Reference to the canvas element.
+ * @param {string} props.id - Unique identifier for the sticker.
+ * @param {string} props.mode - The mode in which the sticker is being rendered.
+ * @param {Function} props.onChange - Callback function to handle changes in the sticker's state.
+ * @param {Function} props.onDelete - Callback function to handle the deletion of the sticker.
+ *
+ * @returns {JSX.Element} The rendered ASticker component.
+ *
+ * @example
+ * <ASticker
+ *   canvasRef={canvasRef}
+ *   id="sticker1"
+ *   mode="CANVAS"
+ *   onChange={handleStickerChange}
+ *   onDelete={handleStickerDelete}
+ * />
+ */
 export function ASticker({ canvasRef, id, mode, onChange, onDelete }: any) {
   const log = useLogger('ASticker');
 
@@ -60,10 +83,12 @@ export function ASticker({ canvasRef, id, mode, onChange, onDelete }: any) {
 
   const { t } = useTranslation();
 
+  // Handle the visibility of controls
   const handleControlsVisibility = (visible) => {
     setVisibleControls(visible);
   };
 
+  // Handle different types of gestures (drag, rotate2D, rotate3D)
   const handleGuesture = (type) => {
     setSwitchGesture(type);
 
@@ -120,6 +145,7 @@ export function ASticker({ canvasRef, id, mode, onChange, onDelete }: any) {
   const [newText, setNewText] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
 
+  // Handle the confirmation of the modal and save the generated image
   const handleOk = async () => {
     if (!generatedImage) {
       return;
@@ -150,6 +176,7 @@ export function ASticker({ canvasRef, id, mode, onChange, onDelete }: any) {
     setIsModalVisible(false);
   };
 
+  // Generate an image based on the input text
   const handleGenerate = async () => {
     const imageUrl = await generateImage(newText);
     setGeneratedImage(null);
