@@ -15,6 +15,40 @@ import { useAura } from '../../hooks/useAura';
 import { AuraMode } from './Board';
 
 
+/**
+ * Component responsible for rendering and managing layers and auras within a canvas.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.RefObject<HTMLCanvasElement>} props.canvasRef - Reference to the canvas element.
+ * @param {string} props.activityId - The ID of the current activity.
+ * @param {Object} props.activity - The activity object containing activity details.
+ * @param {Object} [props.meta={}] - Metadata for the component, including optional `auraKey` and `layerKey`.
+ *
+ * @returns {JSX.Element | null} The rendered component or null if delayed.
+ *
+ * @example
+ * <LayerMake
+ *   canvasRef={canvasRef}
+ *   activityId="activity123"
+ *   activity={activity}
+ *   meta={{ auraKey: "aura123", layerKey: "layer123" }}
+ * />
+ *
+ * @remarks
+ * This component uses several hooks:
+ * - `useLogger` for logging.
+ * - `useLayer` and `useAura` for layer and aura management.
+ * - `useStore` for accessing the global state.
+ * - `useLayoutEffect` for setting the editor status and configuring the camera.
+ * - `useCallback` for memoizing event handlers.
+ *
+ * The component filters layers and auras based on the provided `activityId` and metadata keys.
+ * It also sets up a delayed rendering mechanism to avoid initial rendering issues.
+ *
+ * The `handleAddAura`, `handleChange`, and `handleDelete` functions manage the addition, update, and deletion of layers and auras.
+ *
+ * The camera configuration is updated within a `useLayoutEffect` hook to set the field of view, near, and far clipping planes.
+ */
 export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   const log = useLogger('LayerMake');
   log.debug('Render');
@@ -108,7 +142,6 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
   }, [camera]);
 
   return delayed ? null : (
-    <div>
       <group visible={true} position={[0, 0, 0]}>
         {layers.map((layer) => (
           <Layer
@@ -140,6 +173,5 @@ export function LayerMake({ canvasRef, activityId, activity, meta = {} }: any) {
         </Layer>
       ))}
     </group>
-  </div>
 );
 }

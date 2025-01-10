@@ -32,6 +32,13 @@ type State = StateFromFunctions<
   ]
 >;
 
+/**
+ * Combines multiple slices into a single state object.
+ *
+ * @param set - The function to update the state.
+ * @param get - The function to retrieve the current state.
+ * @returns An object containing the combined state from various slices.
+ */
 const slice = (set: SetState<any>, get: GetState<any>) => ({
   ...activity(set, get),
   ...aura(set, get),

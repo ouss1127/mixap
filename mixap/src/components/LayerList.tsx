@@ -1,11 +1,30 @@
 import React from 'react';
 import useStore from '../hooks/useStore';
 
+/**
+ * LayerList component displays a list of layers with options to toggle their visibility and remove them.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * // <LayerList />
+ *
+ * @returns {JSX.Element} A React component that renders a list of layers with visibility toggle and delete buttons.
+ *
+ * @remarks
+ * This component uses the `useStore` hook to access the state and actions from the store.
+ * It retrieves the list of layers, and provides buttons to toggle the visibility and remove each layer.
+ *
+ * @hook
+ * @function useStore
+ * @param {Function} state - The state selector function to retrieve the necessary state slices.
+ * @returns {Array} layers - The list of layers from the state.
+ * @returns {Function} toggleVisibility - The function to toggle the visibility of a layer.
+ * @returns {Function} removeLayer - The function to remove a layer.
+ */
 const LayerList = () => {
-  // Access layers from the Zustand store
   const layers = useStore((state) => state.layerSlice.layers);
   
-  // Zustand actions for managing layers
   const toggleVisibility = useStore((state) => state.layerSlice.toggleLayerVisibility);
   const removeLayer = useStore((state) => state.layerSlice.removeLayer);
 
@@ -15,15 +34,12 @@ const LayerList = () => {
       <ul>
         {layers.map((layer) => (
           <li key={layer.id}>
-            {/* Layer name and ID */}
             <span>{layer.name || `Layer ${layer.id}`}</span>
             
-            {/* Button to toggle visibility */}
             <button onClick={() => toggleVisibility(layer.id)}>
               {layer.visible ? 'Hide' : 'Show'}
             </button>
             
-            {/* Button to remove a layer */}
             <button onClick={() => removeLayer(layer.id)}>Delete</button>
           </li>
         ))}
